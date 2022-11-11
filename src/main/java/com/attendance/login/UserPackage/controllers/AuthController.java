@@ -353,7 +353,91 @@ public ResponseEntity dlt(@RequestBody String email) {
       }
 
 
-    @PostMapping("/fb-signin")
+//     @PostMapping("/fb-signin")
+//     public ResponseEntity<?> facebook(@RequestBody SignupRequest signUpRequest) {
+//         if (facebookRepo.existsByIdentity(signUpRequest.identity)) {
+
+//             Authentication authentication = authenticationManager
+//                     .authenticate(new UsernamePasswordAuthenticationToken(signUpRequest.getUsername(),
+//                             signUpRequest.getPassword()));
+
+//             SecurityContextHolder.getContext().setAuthentication(authentication);
+//             System.out.println("Authentication   ...........  "+ authentication);
+//             UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+//             ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+//             return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString(), String.valueOf(HttpStatus.CREATED))
+//                     .body(new UserInfoResponse(
+//                             userDetails.getUsername(),
+//                             userDetails.getEmail(),jwtCookie));
+
+// //            return new ResponseEntity<>(HttpStatus.OK);
+//         } else {
+//             if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+//                 return ResponseEntity.unprocessableEntity().body(new MessageResponse("Error: Username is already taken!"));
+//             }
+//             //System.out.println("encoding "+encoder.encode("noPassword"));
+//             System.out.println(signUpRequest.getUsername());
+//             String email = signUpRequest.getUsername();
+//             if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+//                 return ResponseEntity.unprocessableEntity().body(new MessageResponse("Error: Email is already in use!"));
+//             }
+//             User user = new User(signUpRequest.getUsername(),
+//                     email,
+//                     encoder.encode(signUpRequest.password));
+//             System.out.println("password.............");
+//             System.out.println(encoder.encode(signUpRequest.password));
+
+//            Facebook facebook=new Facebook(signUpRequest.identity,signUpRequest.name,signUpRequest.imageurl);
+//             Set<String> strRoles = signUpRequest.getRole();
+//             Set<Role> roles = new HashSet<>();
+
+//             if (strRoles == null) {
+//                 Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+//                         .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//                 roles.add(userRole);
+//             } else {
+//                 strRoles.forEach(role -> {
+//                     switch (role) {
+//                         case "admin":
+//                             Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+//                                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//                             roles.add(adminRole);
+
+//                             break;
+//                         case "mod":
+//                             Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
+//                                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//                             roles.add(modRole);
+
+//                             break;
+//                         default:
+//                             Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+//                                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//                             roles.add(userRole);
+//                     }
+//                 });
+//             }
+
+//             user.setRoles(roles);
+//             userRepository.save(user);
+//             facebookRepo.save(facebook);
+//             Authentication authentication = authenticationManager
+//                     .authenticate(new UsernamePasswordAuthenticationToken(signUpRequest.getUsername(),
+//                             signUpRequest.getPassword()));
+
+//             SecurityContextHolder.getContext().setAuthentication(authentication);
+//             System.out.println("Authentication   ...........  "+ authentication);
+//             UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+//             ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+//             return ResponseEntity.accepted().header(HttpHeaders.SET_COOKIE, jwtCookie.toString(), String.valueOf(HttpStatus.OK))
+//                     .body(new UserInfoResponse(
+//                             userDetails.getUsername(),
+//                             userDetails.getEmail(),jwtCookie));
+//         }
+//     }
+  
+  
+  @PostMapping("/fb-signin")
     public ResponseEntity<?> facebook(@RequestBody SignupRequest signUpRequest) {
         if (facebookRepo.existsByIdentity(signUpRequest.identity)) {
 
@@ -435,6 +519,8 @@ public ResponseEntity dlt(@RequestBody String email) {
                             userDetails.getEmail(),jwtCookie));
         }
     }
+
+
 
 
 
